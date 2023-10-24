@@ -1,16 +1,16 @@
 import { BrowserRouter } from 'react-router-dom';
 import AppRoutes from './routes';
 import { AppThemeProvider, DrawerProvider } from './shared/context';
-import SideMenu from './shared/components/side-menu/SideMenu';
+import { Sidebar } from './shared/components';
 
 function App() {
   return (
     <AppThemeProvider>
       <DrawerProvider>
         <BrowserRouter>
-          <SideMenu>
+          <Sidebar>
             <AppRoutes />
-          </SideMenu>
+          </Sidebar>
         </BrowserRouter>
       </DrawerProvider>
     </AppThemeProvider>

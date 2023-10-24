@@ -20,10 +20,10 @@ export const UseAppThemeContext = () => {
 };
 
 export const AppThemeProvider = ({ children }: IAppThemeProvider) => {
-  const [themeName, setThemeName] = React.useState<'light' | 'dark'>('light');
+  const [themeName, setThemeName] = React.useState<'light' | 'dark'>('dark');
 
   const toggleTheme = React.useCallback(() => {
-    setThemeName(themeName === 'light' ? 'dark' : 'light');
+    setThemeName(themeName === 'dark' ? 'light' : 'dark');
   }, [themeName]);
 
   const theme = React.useMemo(() => {
