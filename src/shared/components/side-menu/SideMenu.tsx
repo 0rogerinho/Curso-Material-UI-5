@@ -3,14 +3,16 @@ import {
   Box,
   Divider,
   Drawer,
-  Icon,
   List,
+  ListItemIcon,
   ListItemButton,
   ListItemText,
   useTheme,
+  useMediaQuery,
 } from '@mui/material';
-
+import HomeIcon from '@mui/icons-material/Home';
 import React from 'react';
+import { UseDrawerContext } from '../../context';
 
 interface ISideMenu {
   children: React.ReactNode;
@@ -18,9 +20,16 @@ interface ISideMenu {
 
 const SideMenu = ({ children }: ISideMenu) => {
   const theme = useTheme();
+  const smDow = useMediaQuery(theme.breakpoints.down('sm'));
+
+  const { isDrawerOpen, toggleDrawer } = UseDrawerContext();
   return (
     <>
-      <Drawer variant="permanent">
+      <Drawer
+        open={isDrawerOpen}
+        variant={smDow ? 'temporary' : 'permanent'}
+        onClose={toggleDrawer}
+      >
         <Box
           width={theme.spacing(28)}
           height="100%"
@@ -39,13 +48,15 @@ const SideMenu = ({ children }: ISideMenu) => {
               src="/devRogerinho.jpg"
             />
           </Box>
-
           <Divider />
 
           <Box flex={1}>
             <List component="nav">
               <ListItemButton>
-                <Icon baseClassName="material-icons-two-tone">add_circle</Icon>
+                <ListItemIcon>
+                  <HomeIcon />
+                </ListItemIcon>
+
                 <ListItemText primary="Initial page" />
               </ListItemButton>
             </List>
@@ -53,7 +64,7 @@ const SideMenu = ({ children }: ISideMenu) => {
         </Box>
       </Drawer>
 
-      <Box height="100vh" marginLeft={theme.spacing(28)}>
+      <Box height="100vh" marginLeft={smDow ? 0 : theme.spacing(28)}>
         {children}
       </Box>
     </>

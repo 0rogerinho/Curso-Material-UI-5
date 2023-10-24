@@ -1,6 +1,6 @@
 import React from 'react';
 // Theme
-import { LightTheme, DarkTheme } from './../themes';
+import { LightTheme, DarkTheme } from '../themes';
 // MUI
 import { ThemeProvider } from '@emotion/react';
 import { Box } from '@mui/material';
@@ -15,12 +15,11 @@ interface IAppThemeProvider {
 
 const themeContext = React.createContext({} as IThemeContext);
 
-// eslint-disable-next-line react-refresh/only-export-components
-export const useAppThemeContext = () => {
+export const UseAppThemeContext = () => {
   return React.useContext(themeContext);
 };
 
-const AppThemeProvider = ({ children }: IAppThemeProvider) => {
+export const AppThemeProvider = ({ children }: IAppThemeProvider) => {
   const [themeName, setThemeName] = React.useState<'light' | 'dark'>('light');
 
   const toggleTheme = React.useCallback(() => {
@@ -47,5 +46,3 @@ const AppThemeProvider = ({ children }: IAppThemeProvider) => {
     </themeContext.Provider>
   );
 };
-
-export default AppThemeProvider;
