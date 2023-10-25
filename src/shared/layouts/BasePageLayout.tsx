@@ -11,7 +11,7 @@ import { UseDrawerContext } from '../context';
 
 interface IBasePageLayoutProps {
   title: string;
-  children: React.JSX.Element;
+  children?: React.JSX.Element;
   toolbar?: React.JSX.Element;
 }
 

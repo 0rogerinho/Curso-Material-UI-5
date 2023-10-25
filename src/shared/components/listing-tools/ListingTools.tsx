@@ -1,5 +1,6 @@
 import { Box, Button, Paper, TextField, useTheme } from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import { Environment } from '../../environment';
 
 interface IToolbarProps {
   textSearch?: string;
@@ -32,7 +33,7 @@ export const ListingTools = ({
       {showInputSearch && (
         <TextField
           size="small"
-          placeholder="Pesquisar..."
+          placeholder={Environment.INPUT_SEARCH}
           value={textSearch}
           onChange={({ target }) => changeSearchText?.(target.value)}
         />
