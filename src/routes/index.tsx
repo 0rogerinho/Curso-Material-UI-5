@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import HomeIcon from '@mui/icons-material/Home';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 
-import { Dashboard, ListCity } from '../pages';
+import { Dashboard, DetailPeople, ListPeople } from '../pages';
 
 const listItem = [
   {
@@ -15,8 +15,8 @@ const listItem = [
     icon: <HomeIcon />,
   },
   {
-    to: '/city',
-    label: 'City',
+    to: '/people',
+    label: 'People',
     icon: <LocationCityIcon />,
   },
 ];
@@ -31,11 +31,9 @@ const AppRoutes = () => {
   return (
     <Routes>
       <Route path="/initial-page" element={<Dashboard />} />
-      <Route path="/city" element={<ListCity />} />
-      {/*<Route
-        path="/city/detail/id:"
-        element={<Navigate to="/initial-page" />}
-  />*/}
+      <Route path="/people" element={<ListPeople />} />
+
+      <Route path="/people/detail/:id" element={<DetailPeople />} />
       <Route path="*" element={<Navigate to="/initial-page" />} />
     </Routes>
   );

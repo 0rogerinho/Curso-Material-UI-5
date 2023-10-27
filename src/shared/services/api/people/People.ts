@@ -1,18 +1,18 @@
 import { Environment } from '../../../environment';
 import { Api } from '../axios-config';
 
-interface IListPeople {
+export interface IListPeople {
   id: number;
   email: string;
-  cidadeId: number;
-  nomeCompleto: string;
+  cityId: number;
+  fullName: string;
 }
 
-interface IDetailPeople {
+export interface IDetailPeople {
   id: number;
   email: string;
-  cidadeId: number;
-  nomeCompleto: string;
+  cityId: number;
+  fullName: string;
 }
 
 type TFullPeopleCount = {
@@ -25,29 +25,30 @@ const getAll = async (
   filter = '',
 ): Promise<TFullPeopleCount | Error> => {
   try {
-    const urlRelativa = `/pessoas?_page=${page}&_limit=${Environment.LINE_LIMIT}&nomeCompleto_like=${filter}`;
+    const urlRelative = `/people?_page=${page}&_limit=${Environment.LINE_LIMIT}&fullName_like=${filter}`;
 
-    const { data, headers } = await Api.get(urlRelativa);
+    const { data, headers } = await Api.get(urlRelative);
 
     if (data) {
+      console.log(data);
+
       return {
         data,
         totalCount: Number(headers['x-total-count'] || Environment.LINE_LIMIT),
       };
     }
 
-    return new Error('Erro ao listar os registros.');
+    return new Error('Error list register');
   } catch (error) {
-    console.error(error);
     return new Error(
-      (error as { message: string }).message || 'Erro ao listar os registros.',
+      (error as { message: string }).message || 'Error list register',
     );
   }
 };
 
 const getById = async (id: number): Promise<IDetailPeople | Error> => {
   try {
-    const { data } = await Api.get(`/pessoas/${id}`);
+    const { data } = await Api.get(`/people/${id}`);
 
     if (data) {
       return data;
@@ -63,10 +64,10 @@ const getById = async (id: number): Promise<IDetailPeople | Error> => {
 };
 
 const create = async (
-  dados: Omit<IDetailPeople, 'id'>,
+  sendData: Omit<IDetailPeople, 'id'>,
 ): Promise<number | Error> => {
   try {
-    const { data } = await Api.post<IDetailPeople>('/pessoas', dados);
+    const { data } = await Api.post<IDetailPeople>('/people', sendData);
 
     if (data) {
       return data.id;
@@ -83,10 +84,10 @@ const create = async (
 
 const updateById = async (
   id: number,
-  dados: IDetailPeople,
+  data: Omit<IDetailPeople, 'id'>,
 ): Promise<void | Error> => {
   try {
-    await Api.put(`/pessoas/${id}`, dados);
+    await Api.put(`/people/${id}`, data);
   } catch (error) {
     console.error(error);
     return new Error(
@@ -97,7 +98,7 @@ const updateById = async (
 
 const deleteById = async (id: number): Promise<void | Error> => {
   try {
-    await Api.delete(`/pessoas/${id}`);
+    await Api.delete(`/people/${id}`);
   } catch (error) {
     console.error(error);
     return new Error(
@@ -106,8 +107,9 @@ const deleteById = async (id: number): Promise<void | Error> => {
   }
 };
 
-export const PessoasService = {
+export const peopleService = {
   getAll,
+
   create,
   getById,
   updateById,

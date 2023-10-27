@@ -2,7 +2,7 @@ export const Environment = {
   /**
    * Define the amount of line to be loaded in the property
    */
-  LINE_LIMIT: 10,
+  LINE_LIMIT: 5,
 
   /**
    * placeholder displayed in inputs
